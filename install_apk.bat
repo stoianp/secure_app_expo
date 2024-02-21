@@ -1,0 +1,1 @@
+adb install secure_app_expo.apk
