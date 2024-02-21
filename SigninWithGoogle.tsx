@@ -4,10 +4,12 @@ import {
     NativeModuleError,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
+import type { User } from '@react-native-google-signin/google-signin';
 
 import { ReactElement, useEffect, useState, } from 'react';
 import { Text, Button, View } from 'react-native';
 import { renderError } from './Error';
+import { renderUserInfo } from './UserInfo';
 
 GoogleSignin.configure({
     webClientId: '872775482122-fvorh5nojqffqinso98lnj3p0sfmv074.apps.googleusercontent.com',
@@ -20,6 +22,8 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
     const [isSignedIn, setSignedIn] = useState(false);
     const [startCheckSignedIn, setStartCheckSignedIn] = useState(false);
     const [endCheckSignedIn, setEndCheckSignedIn] = useState(false);
+    const [getUser, setGetUser] = useState(false);
+    const [currentUser , setCurrentUser ] = useState<User | null>();
     const [error, setError] = useState<string>();
 
     useEffect(() => { // Check authenticate level of device
@@ -42,11 +46,32 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
         })();
     }, [startCheckSignedIn]);
 
+    useEffect(() => { // Get current user
+        (async () => {
+            //console.log("start getting user");
+            try {
+                const userInfo = await GoogleSignin.getCurrentUser();
+                console.log("user: " + userInfo?.user.name);
+                setCurrentUser(userInfo);
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                }
+                else {
+                    setError("Unknown error!");
+                }
+            }
+            //console.log("end getting user");
+            setEndCheckSignedIn(true);
+        })();
+    }, [getUser]);
+
     const googleSignIn = async () => {
         setSignedInMessage("Signin with Google...");
         try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
+            setCurrentUser(userInfo);
             setSignedIn(true);
         } catch (error) {
             const typedError = error as NativeModuleError;
@@ -94,8 +119,12 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
         );
     }
     else {
+        if (currentUser === null) {
+            setGetUser(true);
+        }
         return (
             <>
+                <View>{currentUser && renderUserInfo(currentUser)}</View>
                 <View>
                     {props.children}
                 </View>
