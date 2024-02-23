@@ -1,1 +1,1 @@
-adb install secure_app_expo.apk
+adb install dev.apk

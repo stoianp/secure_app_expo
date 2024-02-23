@@ -47,7 +47,7 @@ export default function AuthenticateLocal(props: { children: ReactElement }) {
         })();
     }, [startAuthenticate]);
 
-    console.log("Local");
+    //console.log("Local");
 
     if (error) { // If some error exist - stop
         return renderError(error);

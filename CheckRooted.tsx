@@ -29,7 +29,7 @@ export default function CheckRooted(props: { children: ReactElement }) {
         })();
     }, [rootCheckStarted]);
 
-    console.log("Root");
+    //console.log("Root");
 
     if (error) { // If some error exist - stop
         return renderError(error);

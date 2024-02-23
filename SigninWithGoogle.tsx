@@ -13,6 +13,8 @@ import { renderUserInfo } from './UserInfo';
 
 GoogleSignin.configure({
     webClientId: '872775482122-fvorh5nojqffqinso98lnj3p0sfmv074.apps.googleusercontent.com',
+    //scopes: ['https://www.myapis.com/auth/read'],
+    //scopes: ['https://www.googleapis.com/auth/user.gender.read'],
     offlineAccess: true,
     profileImageSize: 120
 });
@@ -90,7 +92,18 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
         };
     }
 
-    console.log("Google");
+    const getTokens = async () => {
+        try {
+            const token = await GoogleSignin.getTokens();
+            console.log(token.accessToken);
+            console.log(token.idToken);
+        }
+        catch (error) {
+
+        }
+      }
+
+    //console.log("Google");
 
     if (error) { // If some error exist - stop
         return renderError(error);
@@ -126,10 +139,10 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
             <>
                 <View>{currentUser && renderUserInfo(currentUser)}</View>
                 <View>
-                    {props.children}
+                    <Button onPress={googleSignOut} title="Sign Out!!!" />
                 </View>
                 <View>
-                    <Button onPress={googleSignOut} title="Sign Out!!!" />
+                    {props.children}
                 </View>
             </>
         )

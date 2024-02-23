@@ -11,11 +11,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <CheckRooted>
-        <SigninWithGoogle>
-          <AuthenticateLocal>
+        <AuthenticateLocal>
+          <SigninWithGoogle>
             <Text>Device is OK!</Text>
-          </AuthenticateLocal>
-        </SigninWithGoogle>
+          </SigninWithGoogle>
+        </AuthenticateLocal>
       </CheckRooted>
     </View>
   );
