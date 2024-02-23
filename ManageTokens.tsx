@@ -4,6 +4,11 @@ import { ReactElement, useEffect, useState } from 'react';
 import { Button, View, Text } from 'react-native';
 import { renderError } from './Error';
 
+type Tokens = {
+    idToken?: string;
+    accessToken?: string;
+  }
+
 const prettyJson = (value: any) => {
     return JSON.stringify(value, null, 2);
 }
@@ -11,24 +16,23 @@ const prettyJson = (value: any) => {
 export default function ManageTokens(props: { children: ReactElement }) {
     const accessTokenKey = "accessToken";
     const idTokenKey = "idToken";
+    const [tokens, setTokens] = useState<Tokens | null>(null);
     const [downloadTokens, setDownloadTokens] = useState(false);
-    const [accessToken, setAccessToken] = useState<string | null>();
-    const [idToken, setIdToken] = useState<string | null>();
+    //const [accessToken, setAccessToken] = useState<string | null>(null);
+    //const [idToken, setIdToken] = useState<string | null>(null);
     const [error, setError] = useState<string>();
 
     const googleGetTokens = async () => {
-        setDownloadTokens(true);
+        console.log("downloading....")
+        //setDownloadTokens(true);
         try {
-            const tokens = await GoogleSignin.getTokens();
-            //console.log(tokens.accessToken);
-            //console.log(tokens.idToken);
-            await SecureStore.setItemAsync(accessTokenKey, tokens.accessToken);
-            await SecureStore.setItemAsync(idTokenKey, tokens.idToken);
-            useState({
-                accessToken: tokens.accessToken,
-                idToken: tokens.idToken,
-                downloadTokens: false
-            });
+            const result = await GoogleSignin.getTokens();
+            //console.log(result.accessToken);
+            //console.log(result.idToken);
+            setTokens({ accessToken: result.accessToken, idToken: result.idToken });
+            //setDownloadTokens(false);
+            //await SecureStore.setItemAsync(accessTokenKey, tokens.accessToken);
+            //await SecureStore.setItemAsync(idTokenKey, tokens.idToken);
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);
@@ -43,8 +47,8 @@ export default function ManageTokens(props: { children: ReactElement }) {
         return renderError(error);
         //console.log(error);
     }
-    else if (accessToken === null || idToken === null) { // No tokens
-        setDownloadTokens(true);
+    else if (tokens === null) { // No 
+        console.log("checking!!!!!!")
         return (
             <>
                 {downloadTokens && <Text>Downloadig...</Text>}
@@ -55,8 +59,15 @@ export default function ManageTokens(props: { children: ReactElement }) {
         )
     }
     else {
+        console.log("downloaded!!!!!!")
         return (
             <>
+                <Text>
+                    {prettyJson(tokens.accessToken)}
+                </Text>
+                <Text>
+                    {prettyJson(tokens.idToken)}
+                </Text>
                 <View>
                     {props.children}
                 </View>

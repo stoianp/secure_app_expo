@@ -53,7 +53,7 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
             //console.log("start getting user");
             try {
                 const userInfo = await GoogleSignin.getCurrentUser();
-                console.log("user: " + userInfo?.user.name);
+                //console.log("user: " + userInfo?.user.name);
                 setCurrentUser(userInfo);
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -91,17 +91,6 @@ export default function SigninWithGoogle(props: { children: ReactElement }) {
             setError(typedError.toString());
         };
     }
-
-    const getTokens = async () => {
-        try {
-            const token = await GoogleSignin.getTokens();
-            console.log(token.accessToken);
-            console.log(token.idToken);
-        }
-        catch (error) {
-
-        }
-      }
 
     //console.log("Google");
 
