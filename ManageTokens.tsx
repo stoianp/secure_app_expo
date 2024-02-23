@@ -18,8 +18,6 @@ export default function ManageTokens(props: { children: ReactElement }) {
     const idTokenKey = "idToken";
     const [tokens, setTokens] = useState<Tokens | null>(null);
     const [downloadTokens, setDownloadTokens] = useState(false);
-    //const [accessToken, setAccessToken] = useState<string | null>(null);
-    //const [idToken, setIdToken] = useState<string | null>(null);
     const [error, setError] = useState<string>();
 
     const googleGetTokens = async () => {
@@ -31,8 +29,8 @@ export default function ManageTokens(props: { children: ReactElement }) {
             console.log(result.idToken);
             setTokens({ accessToken: result.accessToken, idToken: result.idToken });
             //setDownloadTokens(false);
-            //await SecureStore.setItemAsync(accessTokenKey, tokens.accessToken);
-            //await SecureStore.setItemAsync(idTokenKey, tokens.idToken);
+            await SecureStore.setItemAsync(accessTokenKey, result.accessToken);
+            await SecureStore.setItemAsync(idTokenKey, result.idToken);
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);
