@@ -27,8 +27,8 @@ export default function ManageTokens(props: { children: ReactElement }) {
         //setDownloadTokens(true);
         try {
             const result = await GoogleSignin.getTokens();
-            //console.log(result.accessToken);
-            //console.log(result.idToken);
+            console.log(result.accessToken);
+            console.log(result.idToken);
             setTokens({ accessToken: result.accessToken, idToken: result.idToken });
             //setDownloadTokens(false);
             //await SecureStore.setItemAsync(accessTokenKey, tokens.accessToken);
@@ -47,7 +47,7 @@ export default function ManageTokens(props: { children: ReactElement }) {
         return renderError(error);
         //console.log(error);
     }
-    else if (tokens === null) { // No 
+    else if (tokens === null) { // No tokens
         console.log("checking!!!!!!")
         return (
             <>
