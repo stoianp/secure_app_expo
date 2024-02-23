@@ -5,6 +5,7 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import CheckRooted from './CheckRooted';
 import AuthenticateLocal from './AuthenticateLocal';
 import SigninWithGoogle from './SigninWithGoogle';
+import ManageTokens from './ManageTokens';
 
 export default function App() {
 
@@ -13,7 +14,7 @@ export default function App() {
       <CheckRooted>
         <AuthenticateLocal>
           <SigninWithGoogle>
-            <Text>Device is OK!</Text>
+              <Text>Device is OK!</Text>
           </SigninWithGoogle>
         </AuthenticateLocal>
       </CheckRooted>
