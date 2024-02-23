@@ -15,6 +15,6 @@ expo-local-authentication - за fingerprint или PIN/Password логване 
 За да се стартира в дебъг - след смъкване на репозиторито трябва да се изпълнят следните стъпки:
 npm install - зарежда всички dependencies
 npx expo prebuild --clean - включва нейтив кода в проекта
-eas build --profile development --platform android - създава development apk, което трябва да се зареди в емулатора или тест утройството, може да се свали от следния адрес: https://expo.dev/accounts/stoianp/projects/secure-app-expo/builds/96531c66-5d34-440c-85be-55079709ca55
+eas build --profile development --platform android - създава development apk, което трябва да се зареди в емулатора или тест утройството, може да се свали от следния адрес: https://expo.dev/accounts/stoianp/projects/secure-app-expo/builds/9d7be315-8e93-4735-80c8-e46b611c672c
 След като development apk е заредено, проектът се стартира с
 npm start
