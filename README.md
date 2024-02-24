@@ -1,4 +1,4 @@
-Preview APK може да бъде свалено от следния адрес: https://expo.dev/accounts/stoianp/projects/secure-app-expo/builds/17913b83-7ccd-4bbe-b5e8-1f119115876c
+Preview APK може да бъде свалено от следния адрес: https://expo.dev/accounts/stoianp/projects/secure-app-expo/builds/19fe1f8c-af80-4a93-8b3c-1799e3e9f593
 
 Първо проверява дали устройството е rooted/jailbroken, ако всичко е наред изисквa пръстов отпечатък или PIN код. 
 След това предлага google signin чрез кликване на гугълския бутон.
