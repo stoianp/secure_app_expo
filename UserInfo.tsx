@@ -1,5 +1,5 @@
 import type { User } from '@react-native-google-signin/google-signin';
-import { Text, Image } from 'react-native';
+import { StyleSheet, Text, Image, View } from 'react-native';
 
 export function renderUserInfo(userInfo: User) {
     const PROFILE_IMAGE_SIZE = 100;
@@ -10,14 +10,22 @@ export function renderUserInfo(userInfo: User) {
     //console.log("userInfo.user.photo: " + userInfo.idToken);
 
     return (
-        <>
-            <Text> {userInfo.user.name}</Text>
+        <View style={styles.userContainer}>
             {userInfo.user.photo && (
                 <Image
                     style={{ width: PROFILE_IMAGE_SIZE, height: PROFILE_IMAGE_SIZE }}
                     source={{ uri: userInfo.user.photo }}
                 />
             )}
-        </>
+            <Text style={{width: '70%'}}> {userInfo.user.name}</Text>
+        </ View>
     );
 }
+
+const styles = StyleSheet.create({
+    userContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  });
+  
